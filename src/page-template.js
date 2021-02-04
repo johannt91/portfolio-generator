@@ -18,3 +18,14 @@ const generatePage = (userName, github) => {
   };
 
   module.exports = generatePage;
+
+  
+
+
+  const generatePage = (userName, github) => {
+    return `
+
+    `;
+  };
+
+  module.exports = generatePage;
