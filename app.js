@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+const { writeFile, copyFile } = require('./utils/generate-site.js'); //imports exported object from generate-site.js
 const generatePage = require('./src/page-template.js');
 
 // const pageHTML = generatePage(userName, github);
@@ -140,14 +140,22 @@ Add a New Project
         });
 };
 
+
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        const pageHTML = generatePage(portfolioData);
-
-
-        fs.writeFile('index.html', generatePage(portfolioData), err => {
-            if (err) throw err;
-            console.log('Portfolio comlete! Check the index.html to see the output');
-        });
+        return generatePage(portfolioData);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
     });
